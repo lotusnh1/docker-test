@@ -8,5 +8,6 @@ def geeks_view(request):
     now = datetime.datetime.now()
     # convert to string
     html = "Time is {}".format(now)
+    print("ok")
     # return response
     return HttpResponse(html)
