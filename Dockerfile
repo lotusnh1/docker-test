@@ -1,25 +1,37 @@
-# The first instruction is what image we want to base our container on
-# We Use an official Python runtime as a parent image
-FROM python:3.6
+#Pull the base image
+FROM python:3.7-slim
 
-# The enviroment variable ensures that the python output is set straight
-# to the terminal with out buffering it first
+# who is the maintainer/author of this file
+LABEL org.opencontainers.image.authors="PAYALSASMAL, sasmalpayal@gmail.com"
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DEBUG 0
 
-# create root directory for our project in the container
-RUN mkdir /code
-
-# Set the working directory to /music_service
-WORKDIR /code
-
-# Copy the current directory contents into the container at /music_service
-ADD . /code/
-
-
-# Install any needed packages specified in requirements.txt
+#upgrading pip for python
 RUN python -m pip install --upgrade pip
-RUN pip3 install -r requiremenrs.txt 
-RUN python manage.py migrate
 
+#install tkinter for my application requirement, you can skip this for your application
+RUN apt-get update && apt-get install -y tcl tk
+
+#creating this dir for my application, you can skip this for your application
+RUN mkdir -p /usr/share/man/man1
+
+#installing libreoffice for my application, you can skip this for your application
+RUN apt-get update && apt-get install -y \
+    libreoffice-base default-jre
+
+#copying requirements.txt file
+COPY ./requirements.txt /app/requirements.txt
+
+#install those requirements before copying the project
+RUN pip install -r /app/requirements.txt
+
+#copy the project
+COPY . .
+
+#run gunicorn. here pdfconverter is the project name
 CMD gunicorn -b 0.0.0.0:$PORT pdfconverter.wsgi:application
+
 
