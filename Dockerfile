@@ -20,6 +20,7 @@ ADD . /code/
 RUN python -m pip install --upgrade pip
 RUN pip3 install -r requiremenrs.txt 
 RUN python manage.py migrate
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
-CMD gunicorn -b 0.0.0.0:$PORT hello_django.wsgi:application
+#CMD gunicorn -b 0.0.0.0:$PORT hello_django.wsgi:application
 
