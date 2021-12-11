@@ -35,7 +35,7 @@ SECRET_KEY = 'm)c5m^t&5am#856b7i3x_f-h25u8(^s5z8(mu2hm86id&fe5@!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '192.168.99.100','uncof-demo.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '192.168.99.100','uncof-demo.herokuapp.com','docker-on-test.herokuapp.com']
 
 
 # Application definition
